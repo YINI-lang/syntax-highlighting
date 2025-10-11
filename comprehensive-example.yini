@@ -6,15 +6,15 @@
     many syntax features, section header styles, data
     types, and comment types/styles as possible.
 
-    Version: 1.0.4
+    Version: 1.0.1
 */
 
 /*
  * Optional directive variants (use only one "@yini" per file)
  */
 @yini
---@Yini
---@YINI
+@Yini
+@YINI
 
 /*
     Example of a YINI document - all features showcased.
@@ -81,68 +81,15 @@ exp1 = 0.99e3
 exp2 = -0.30e2
 exp3 = 1.0e0    // Edge-case!
 exp4 = .5e2     # Edge-case!
-
 ; Hexadecimal notation
-hex1  = #0
-hex2  = #0F
-hex3  = #FFEE       // A hash without any tab/space after is interpreted as hex
-hex4  = #aabb99
-hex5  = 0x0            // With alterantive notaion 0x
-hex6  = 0x0F
-hex7  = 0xFFEE
-hex8  = 0xaabb99
-hex9  = 0X0            // With alterantive notaion 0X
-hex10 = 0X0F
-hex11 = 0XFFEE
-hex12 = 0Xaabb99
-
+hex2 = #FFEEAA    // A hash without any tab/space after is interpreted as hex
+hex1 = 0xDEADBEEF   // The common "0x" works too
 ; Binary notation
-bin1  = %0           // Zero in binary
-bin2  = %1           // Smallest positive integer
-bin3  = %1111111     // Decimal 127 (max signed 8-bit)
-bin4  = %01011
-bin5  = 0b0          // With alterantive notaion 0b
-bin6  = 0b1
-bin7  = 0b1111111
-bin8  = 0b01011
-bin9  = 0B0          // With alterantive notaion 0B
-bin10 = 0B1
-bin11 = 0B1111111
-bin12 = 0B01011
-
+//@todo
 ; Duodecimal notation
-doz1  = 0z0
-doz2  = 0z1     // Smallest positive integer
-doz3  = 0zX     // Decimal 10 (X/A is digit for 10 in base-12)
-doz4  = 0z10    // Decimal 12
-doz5  = 0z1E    // Decimal 23 (E/B is digit for 11 in base-12)
-doz6  = 0zA     // Decimal 10 (X/A is digit for 10 in base-12)
-doz7  = 0zB     // Decimal 11 (E/B is digit for 11 in base-12)
-doz8  = 0z10    // Decimal 12
-doz9  = 0z1B    // Decimal 23 (E/B is digit for 11 in base-12)
-doz10 = 0Z0     // Zero in base-12
-doz11 = 0Z1     // Smallest positive integer
-doz12 = 0ZX     // Decimal 10 (X/A is digit for 10 in base-12)
-doz13 = 0Z10    // Decimal 12
-doz14 = 0Z1E    // Decimal 23 (E/B is digit for 11 in base-12)
-doz15 = 0ZA     // Decimal 10 (X/A is digit for 10 in base-12)
-doz16 = 0ZB     // Decimal 11 (E/B is digit for 11 in base-12)
-doz17 = 0Z10    // Decimal 12
-doz18 = 0Z1B    // Decimal 23 (E/B is digit for 11 in base-12)
-
-
+//@todo
 ; Oct notation
-oct1  = 0o0     // Zero in octal
-oct2  = 0o00    // Zero in octal
-oct3  = 0o7     // Decimal 7 (max single octal digit)
-oct4  = 0o10    // Decimal 8
-oct5  = 0o755
-oct6  = 0O0     // Zero in octal
-oct7  = 0O00    // Zero in octal
-oct8  = 0O7     // Decimal 7 (max single octal digit)
-oct9  = 0O10    // Decimal 8
-oct10 = 0O755
-
+//@todo
 
 ; Raw strings can optionally be prefixed with R or r to be explicit
 rawString1 = R'This is a "raw" string, it is as-is, no escapes are interpreted'
@@ -236,5 +183,7 @@ val = 123
 
         <<< AltThirdLevel
         val3 = false
+
+/END // (only optional)
 
 // End of demo
