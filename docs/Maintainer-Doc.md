@@ -27,3 +27,10 @@ Install the created file, in above steps, in VSCode:
 ```bash
 code --install-extension yini-syntax-1.0.0.vsix
 ```
+
+---
+
+**^YINI ≡**  
+> A simple, structured, and human-friendly configuration format.  
+
+[yini-lang.org](https://yini-lang.org) · [YINI on GitHub](https://github.com/YINI-lang)  

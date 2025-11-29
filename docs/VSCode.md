@@ -27,3 +27,10 @@ If you want these lines to appear dimmed or "ghosted," you can add a custom colo
 Now, any line starting with `--` in a YINI file will appear dimmed and italicized.
 
 > 💡 **Tip:** You can customize the color and font style as you like!
+
+---
+
+**^YINI ≡**  
+> A simple, structured, and human-friendly configuration format.  
+
+[yini-lang.org](https://yini-lang.org) · [YINI on GitHub](https://github.com/YINI-lang)  
