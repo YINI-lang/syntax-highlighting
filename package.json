@@ -1,13 +1,16 @@
 {
-  "name": "yini-syntax",
+  "name": "yini-syntax-highlighting",
   "displayName": "YINI Syntax Highlighting",
   "description": "Syntax highlighting for the YINI config files (works in VSCode and other editors supporting TextMate grammars).",
   "version": "1.0.0",
   "publisher": "local",
+  "license": "MIT",
+  "icon": "images/icon.png",
   "engines": {
-    "vscode": "^1.40.0"
+    "vscode": "^1.80.0"
   },
   "categories": ["Programming Languages"],
+  "keywords": ["yini", "ini", "configuration", "textmate", "syntax-highlighting"],
   "contributes": {
     "languages": [
       {
@@ -27,8 +30,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/YINI-lang/yini-syntax"
+    "url": "https://github.com/YINI-lang/yini-syntax-highlighting"
   },
-  "homepage": "https://github.com/YINI-lang/yini-syntax#readme",
-  "bugs": { "url": "https://github.com/YINI-lang/yini-syntax/issues" }
+  "homepage": "https://github.com/YINI-lang/yini-syntax-highlighting#readme",
+  "bugs": { "url": "https://github.com/YINI-lang/yini-syntax-highlighting/issues" }
 }
