@@ -9,14 +9,29 @@
   "engines": {
     "vscode": "^1.80.0"
   },
-  "categories": ["Programming Languages"],
-  "keywords": ["yini", "ini", "configuration", "textmate", "syntax-highlighting"],
+  "categories": [
+    "Programming Languages"
+  ],
+  "keywords": [
+    "yini",
+    "ini",
+    "configuration",
+    "textmate",
+    "syntax-highlighting"
+  ],
   "contributes": {
     "languages": [
       {
         "id": "yini",
-        "aliases": ["YINI", "yini"],
-        "extensions": [".yini", ".Yini", ".YINI"],
+        "aliases": [
+          "YINI",
+          "yini"
+        ],
+        "extensions": [
+          ".yini",
+          ".Yini",
+          ".YINI"
+        ],
         "configuration": "./language-configuration.json"
       }
     ],
@@ -30,8 +45,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/YINI-lang/yini-syntax-highlighting"
+    "url": "git+https://github.com/YINI-lang/yini-syntax-highlighting.git"
   },
   "homepage": "https://github.com/YINI-lang/yini-syntax-highlighting#readme",
-  "bugs": { "url": "https://github.com/YINI-lang/yini-syntax-highlighting/issues" }
+  "bugs": {
+    "url": "https://github.com/YINI-lang/yini-syntax-highlighting/issues"
+  }
 }
