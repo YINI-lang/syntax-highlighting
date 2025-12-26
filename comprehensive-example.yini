@@ -2,11 +2,12 @@
 # Optional shebang, must appear on first line
 
 /*
+    *** NOTE ***
+    Version: 1.0.1
+
     A comprehensive YINI example that exercises as
     many syntax features, section header styles, data
     types, and comment types/styles as possible.
-
-    Version: 1.0.1
 */
 
 /*
