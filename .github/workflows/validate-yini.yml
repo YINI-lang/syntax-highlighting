@@ -2,6 +2,9 @@ name: Validate YINI files (default, lenient mode)
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
 
 jobs:
   validate:

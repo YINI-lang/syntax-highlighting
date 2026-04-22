@@ -1,7 +1,10 @@
-name: Validate YINI files in strict mode
+name: Validate strict YINI files in strict mode
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
 
 jobs:
   validate:
