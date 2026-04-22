@@ -114,6 +114,8 @@ null3 = NULL
 
     // Triple quoted string, are multi-line. 
     // (!) NOTE: Only enclosed in double quotes supported!
+    /*
+    // NOT IMPLEMENTED YET IN PARSER 
     tripleQStr = """Raw triple-quoted
     string with \n not interpreted
     and line breaks kept."""
@@ -121,6 +123,7 @@ null3 = NULL
     tripleQClassicStr = C"""Classic triple-quoted (prefixed with C or c)
     string: newlines and escapes like \n
     are interpreted."""
+    */
 
     ; Section names in headers can be backticked if they include
     ; spacer or special characters.
