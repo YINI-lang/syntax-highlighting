@@ -17,4 +17,4 @@ jobs:
           node-version: 24
 
       - name: Run yini-cli validation
-        run: npx yini-cli@latest validate --strict ./sample.strict.yini
+        run: npx yini-cli@latest validate --strict ./sample.strict.yini ./comprehensive-example.strict.yini
