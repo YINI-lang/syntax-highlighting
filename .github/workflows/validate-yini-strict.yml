@@ -1,4 +1,4 @@
-name: Validate YINI sample in strict mode
+name: Validate YINI files in strict mode
 
 on:
   workflow_dispatch:

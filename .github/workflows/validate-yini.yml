@@ -1,4 +1,4 @@
-name: Validate YINI sample (default, lenient mode)
+name: Validate YINI files (default, lenient mode)
 
 on:
   workflow_dispatch:
