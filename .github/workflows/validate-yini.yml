@@ -1,4 +1,4 @@
-name: Validate YINI sample
+name: Validate YINI sample (default, lenient mode)
 
 on:
   workflow_dispatch:
@@ -17,4 +17,6 @@ jobs:
           node-version: 24
 
       - name: Run yini-cli validation
-        run: npx yini-cli@latest validate ./sample.yini
+        run: npx yini-cli@latest validate ./sample.yini ./comprehensive-example.yini
+
+
