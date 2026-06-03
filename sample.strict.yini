@@ -1,10 +1,7 @@
-
-
-
 @yini
 
 /*
-    Example of a YINI document.
+    Example of a strict YINI document.
 */
 
 ^ App
@@ -12,7 +9,7 @@
     Enabled = true
     customName = 'MyService'
 
-        ^^^ Cache                // Defines Cache, a sub-section of Server.
+        ^^^ Cache                // Defines Cache, a sub-section of Service.
         Type = 'redis'
         TTL = 3600
 
@@ -23,4 +20,4 @@
     ^^ Env                       // Defines a section named Env.
     code = "dev"
 
-/END
+/END                          // Required in strict mode.
