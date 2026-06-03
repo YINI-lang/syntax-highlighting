@@ -147,12 +147,20 @@ Escapes such as \n and \t are interpreted."""
     TTL = 3600
     enabled = false
     list = [1, 2, 3, "str", true, null]
-    list_no_trailing_comma = ["a", "b"]  // Strict mode disallows a trailing comma.
+    list_trailing_comma = ["a", "b"]     // Strict mode disallows a trailing comma.
     implicitNull = null                  // Strict mode uses explicit null.
     nestedList = [
         ["stylesheet", "css/general.css"],
         ["stylesheet", "css/themes.css"]
     ]
+    inlineObject = { id: 1, name: "Main", enabled: true, tags: ["a", "b", "c"] }
+    nestedInlineObject = { owner: { name: "Jane", active: true }, limits: { ttl: 3600, retries: 3 } }
+    inlineObjectList = [
+        { role: "admin", value: 1 },
+        { role: "user", value: 2 },
+        { role: "guest", value: 0 }
+    ]
+    modeInlineObject = { timeout: 30, retries: 3 }     // Strict mode requires : inside inline objects.
 
         ^^^^ Options     // Third-level section.
         host = '127.0.0.1'
