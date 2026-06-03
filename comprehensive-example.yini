@@ -11,13 +11,6 @@
 */
 
 /*
- * Optional directive variants (use only one "@yini" per file)
- */
-@yini
-@Yini
-@YINI
-
-/*
     Example of a YINI document - all features showcased.
 */
 
@@ -50,6 +43,7 @@ string6 = '**/*.js.map'         # Hash inline comment.
 int1 = 42
 int2 = -1
 int3 = 0
+int4 = +7
 
 ; Floating point numbers.
 float1 = 0.42
@@ -62,10 +56,10 @@ float6 = -99.0099
 ; Boolean literals are case-insensitive.
 bool1 = true
 bool2 = false
-bool3 = yes     # Alternative true.
-bool4 = no      # Alternative false.
-bool5 = on      # Alternative true.
-bool6 = off     # Alternative false.
+bool3 = Yes     # Alternative true.
+bool4 = NO      # Alternative false.
+bool5 = ON      # Alternative true.
+bool6 = Off     # Alternative false.
 
 ; Null literals are case-insensitive.
 null1 = null
@@ -82,46 +76,42 @@ exp1 = 0.99e3
 exp2 = -0.30e2
 exp3 = 1.0e0
 exp4 = .5e2
+exp5 = 1.23E+4
 
 ; Hexadecimal notation.
 hex1 = 0xDEADBEEF
 hex2a = hex:FFEEAA
 hex2b = hex:ffeeaa
+hex3 = 0XF390
 
 ; Binary notation.
 bin1 = 0b101010
 bin2 = %101010
+bin3 = 0B110011
 
 ; Octal notation.
 oct1 = 0o755
+oct2 = 0O7477
 
 ; Dozenal notation.
 doz1 = 0z10
 doz2 = 0zx
 doz3 = 0ze
+doz4 = 0Z2Ex9
 
 ; Raw strings can optionally be prefixed with R or r to be explicit.
 rawString1 = R'This is a "raw" string. No escapes are interpreted.'
 rawString2 = r"This is a\n**raw**\nstring. No escapes are interpreted."
 
-; Hyper strings are prefixed with H or h.
-; They are multi-line strings where surrounding whitespace is trimmed and internal whitespace is normalized.
-hyperStr1 = H'
-    This is a
-        multi-line  string.
-    All   extra   spaces
-are   normalized!'
-; Resulting value: "This is a multi-line string. All extra spaces are normalized!"
-
-hyperStr2 = h"
-        This is a multi-line  string. All   extra   spaces are   normalized!
-    "
-; Resulting value: "This is a multi-line string. All extra spaces are normalized!"
-
 ; Classic strings are prefixed with C or c.
 ; They support and interpret escape sequences such as \n and \t.
 classicStr1 = C'Hello,\nWorld!\tWelcome to YINI.'
 classicStr2 = c"Hello,\nWorld!\tWelcome to YINI."
+classicEscapes = C"Quotes: \"double\", \'single\'; hex \x41; unicode \u0041; octal \o101."
+
+; String concatenation uses + and must remain on one line.
+concatStr1 = "Hello" + " " + "World!"
+concatStr2 = R"raw-" + C"classic"
 
 ; Triple-quoted strings are multi-line strings.
 ; Triple-quoted strings are raw by default.
@@ -129,8 +119,15 @@ tripleQStr = """Raw triple-quoted
 string with \n not interpreted
 and line breaks kept."""
 
+; R-prefixed triple-quoted strings are explicitly raw.
+tripleQRawStr = R"""Explicit raw triple-quoted
+string with line breaks kept."""
+
 ; C-prefixed triple-quoted strings interpret escape sequences.
 tripleQClassicStr = C"""Classic triple-quoted string.
+Escapes such as \n and \t are interpreted."""
+
+tripleQClassicStr2 = c"""Lowercase classic triple-quoted string.
 Escapes such as \n and \t are interpreted."""
 
 ; Section names in headers can be backticked if they include
@@ -142,23 +139,33 @@ Escapes such as \n and \t are interpreted."""
 `Created By` = "Jane Developer"
 `License Type` = "MIT"
 `Is Active` = true
+`Amanda's Project` = "Special characters in a key"
+`Build-Target` = "release"
 
     ^^ Cache             // Nested section. Indentation is for readability only.
     type = "redis"
     TTL = 3600
     enabled = false
     list = [1, 2, 3, "str", true, null]
+    list_trailing_comma = ["a", "b",]    // Lenient mode accepts a trailing comma.
+    implicitNull =                       // Lenient mode treats a missing value as null.
+    nestedList = [
+        ["stylesheet", "css/general.css"],
+        ["stylesheet", "css/themes.css"]
+    ]
 
         ^^^ Options      // Third-level section.
         host = '127.0.0.1'
         port = 6379
-        _object = { id: 1, name: "Main", tags: { a: 3, b: 2, c: 1 } }
+        object_id = 1
+        object_name = "Main"
+        object_tags = ["a", "b", "c"]
         _list = ['style', ['Volvo', 'Doc', 'Cat']]
         _meta1 = ['font', 42, 'UI', [55, 44, 33], "default", 'description of']
         _meta2 = [
-            { role: "admin", value: 1 },
-            { role: "user", value: 2 },
-            { role: "guest", value: 0 }
+            ["admin", 1],
+            ["user", 2],
+            ["guest", 0]
         ]
 
 ^ Env                    // New top-level section.
@@ -166,21 +173,20 @@ code = "dev"
 mode = on
 pi = 3.14159
 list_empty = []
-object_empty = {}
 
-; Shorthand numeric section marker headers.
-^1 Database              # Section header using numeric shorthand.
+; Repeated marker section headers.
+^ Database               # Section header using repeated marker form.
 enabled = true
 user = "root"
 password = 'secret'
 roles = ["admin", "user", "guest"]
 timeout = null
 
-    ^2 Cache             # Sub-section using numeric shorthand.
+    ^^ Cache             # Sub-section using repeated marker form.
     type = "memcached"
     TTL = 1800
 
-        ^3 Options       # Third-level sub-section using numeric shorthand.
+        ^^^ Options      # Third-level sub-section using repeated marker form.
         host = "192.168.1.1"
         port = 11211
 
