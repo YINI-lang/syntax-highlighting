@@ -2,31 +2,14 @@
   "name": "YINI",
   "scopeName": "source.yini",
   "patterns": [
-    {
-      "name": "comment.line.shebang.yini",
-      "match": "^#!.*$"
-    },
-    {
-      "name": "comment.line.double-slash.yini",
-      "match": "//.*$"
-    },
-    {
-      "name": "comment.line.hash.yini",
-      "match": "#[ \\t]+.*$"
-    },
-    {
-      "name": "comment.line.semicolon.yini",
-      "match": "^[ \\t]*;.*$"
-    },
-    {
-      "name": "comment.block.yini",
-      "begin": "/\\*",
-      "end": "\\*/"
-    },
-    {
-      "name": "meta.line.disabled.yini",
-      "match": "--.*$"
-    },
+    { "include": "#shebang" },
+    { "include": "#disabled-line" },
+    { "include": "#comments" },
+    { "include": "#yini-marker" },
+    { "include": "#document-terminator" },
+    { "include": "#sections" },
+    { "include": "#strings" },
+    { "include": "#numbers" },
     {
       "name": "constant.language.boolean.yini",
       "match": "(?i)\\b(true|false|on|off|yes|no)\\b"
@@ -36,57 +19,23 @@
       "match": "(?i)\\bnull\\b"
     },
     {
-      "name": "keyword.control.yini",
-      "match": "^(?i)@yini\\b"
-    },
-    {
-      "name": "entity.name.type.class",
-      "match": "^(\\s*)(?:\\^{1,6}|<|\\^(?:[7-9]|\\d{2,}))(\\s+)(?:[A-Za-z_][A-Za-z0-9_]*|`[^`]*`)"
-    },
-    {
       "name": "variable.other.key.yini",
-      "match": "^\\s*(?:[A-Za-z_][A-Za-z0-9_]*|`[^`\\t\\r\\n]*`)(?=\\s*=)"
+      "match": "(?:[A-Za-z_][A-Za-z0-9_]*|`[^`\\t\\r\\n]+`)(?=[ \\t]*[:=])"
     },
     {
-      "name": "constant.numeric.hex.yini",
-      "match": "(0[xX][0-9A-Fa-f]+|#[0-9A-Fa-f]+)"
+      "name": "keyword.operator.assignment.yini",
+      "match": "="
     },
     {
-      "name": "constant.numeric.yini",
-      "match": "(?<=\\=|:|,|\\[|\\{)\\s*([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)"
-    },
-    {
-      "name": "string.quoted.single.yini",
-      "begin": "'",
-      "end": "'",
-      "patterns": [
-        {
-          "name": "constant.character.escape.yini",
-          "match": "\\\\."
-        }
-      ]
-    },
-    {
-      "name": "string.quoted.double.yini",
-      "begin": "\"",
-      "end": "\"",
-      "patterns": [
-        {
-          "name": "constant.character.escape.yini",
-          "match": "\\\\."
-        }
-      ]
+      "name": "keyword.operator.concatenation.yini",
+      "match": "\\+"
     },
     {
       "name": "punctuation.separator.key-value.yini",
-      "match": "\\s*=\\s*"
+      "match": ":"
     },
     {
-      "name": "punctuation.separator.colon.yini",
-      "match": "\\s*:\\s*"
-    },
-    {
-      "name": "punctuation.separator.comma.yini",
+      "name": "punctuation.separator.sequence.yini",
       "match": ","
     },
     {
@@ -106,7 +55,219 @@
       "match": "\\}"
     }
   ],
-  "repository": {},
+  "repository": {
+    "shebang": {
+      "name": "comment.line.shebang.yini",
+      "match": "\\A(?:\\uFEFF)?#!.*$"
+    },
+    "disabled-line": {
+      "name": "meta.line.disabled.yini",
+      "match": "^[ \\t]*--.*$"
+    },
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.double-slash.yini",
+          "match": "//.*$"
+        },
+        {
+          "name": "comment.line.hash.yini",
+          "match": "#.*$"
+        },
+        {
+          "name": "comment.line.semicolon.yini",
+          "match": "^[ \\t]*;.*$"
+        },
+        {
+          "name": "comment.block.yini",
+          "begin": "/\\*",
+          "end": "\\*/"
+        }
+      ]
+    },
+    "yini-marker": {
+      "name": "meta.directive.yini",
+      "match": "^([ \\t]*)(@(?i:yini))(?:[ \\t]+((?i:strict|lenient)))?\\b",
+      "captures": {
+        "2": { "name": "keyword.control.directive.yini" },
+        "3": { "name": "storage.modifier.mode.yini" }
+      }
+    },
+    "document-terminator": {
+      "name": "keyword.control.terminator.yini",
+      "match": "^[ \\t]*(?i:/END)\\b"
+    },
+    "sections": {
+      "patterns": [
+        {
+          "name": "meta.section.yini",
+          "match": "^([ \\t]*)([\\^§<>](?:[1-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))([ \\t]+)([A-Za-z_][A-Za-z0-9_]*|`[^`\\t\\r\\n]+`)",
+          "captures": {
+            "2": { "name": "punctuation.definition.section.yini" },
+            "4": { "name": "entity.name.section.yini" }
+          }
+        },
+        {
+          "name": "meta.section.yini",
+          "match": "^([ \\t]*)((?:\\^(?:_?\\^){0,8}|§(?:_?§){0,8}|>(?:_?>){0,8}|<(?:_?<){0,8}))([ \\t]*)([A-Za-z_][A-Za-z0-9_]*|`[^`\\t\\r\\n]+`)",
+          "captures": {
+            "2": { "name": "punctuation.definition.section.yini" },
+            "4": { "name": "entity.name.section.yini" }
+          }
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.triple.double.classic.yini",
+          "begin": "(?<![A-Za-z0-9_])([Cc])(\"\"\")",
+          "beginCaptures": {
+            "1": { "name": "storage.type.string.yini" },
+            "2": { "name": "punctuation.definition.string.begin.yini" }
+          },
+          "end": "\"\"\"",
+          "endCaptures": {
+            "0": { "name": "punctuation.definition.string.end.yini" }
+          },
+          "patterns": [
+            { "include": "#classic-escape" }
+          ]
+        },
+        {
+          "name": "string.quoted.triple.double.raw.yini",
+          "begin": "(?<![A-Za-z0-9_])([Rr])(\"\"\")",
+          "beginCaptures": {
+            "1": { "name": "storage.type.string.yini" },
+            "2": { "name": "punctuation.definition.string.begin.yini" }
+          },
+          "end": "\"\"\"",
+          "endCaptures": {
+            "0": { "name": "punctuation.definition.string.end.yini" }
+          }
+        },
+        {
+          "name": "string.quoted.triple.double.raw.yini",
+          "begin": "\"\"\"",
+          "beginCaptures": {
+            "0": { "name": "punctuation.definition.string.begin.yini" }
+          },
+          "end": "\"\"\"",
+          "endCaptures": {
+            "0": { "name": "punctuation.definition.string.end.yini" }
+          }
+        },
+        {
+          "name": "string.quoted.single.classic.yini",
+          "begin": "(?<![A-Za-z0-9_])([Cc])(')",
+          "beginCaptures": {
+            "1": { "name": "storage.type.string.yini" },
+            "2": { "name": "punctuation.definition.string.begin.yini" }
+          },
+          "end": "'",
+          "endCaptures": {
+            "0": { "name": "punctuation.definition.string.end.yini" }
+          },
+          "patterns": [
+            { "include": "#classic-escape" }
+          ]
+        },
+        {
+          "name": "string.quoted.double.classic.yini",
+          "begin": "(?<![A-Za-z0-9_])([Cc])(\")",
+          "beginCaptures": {
+            "1": { "name": "storage.type.string.yini" },
+            "2": { "name": "punctuation.definition.string.begin.yini" }
+          },
+          "end": "\"",
+          "endCaptures": {
+            "0": { "name": "punctuation.definition.string.end.yini" }
+          },
+          "patterns": [
+            { "include": "#classic-escape" }
+          ]
+        },
+        {
+          "name": "string.quoted.single.raw.yini",
+          "begin": "(?<![A-Za-z0-9_])([Rr])(')",
+          "beginCaptures": {
+            "1": { "name": "storage.type.string.yini" },
+            "2": { "name": "punctuation.definition.string.begin.yini" }
+          },
+          "end": "'",
+          "endCaptures": {
+            "0": { "name": "punctuation.definition.string.end.yini" }
+          }
+        },
+        {
+          "name": "string.quoted.double.raw.yini",
+          "begin": "(?<![A-Za-z0-9_])([Rr])(\")",
+          "beginCaptures": {
+            "1": { "name": "storage.type.string.yini" },
+            "2": { "name": "punctuation.definition.string.begin.yini" }
+          },
+          "end": "\"",
+          "endCaptures": {
+            "0": { "name": "punctuation.definition.string.end.yini" }
+          }
+        },
+        {
+          "name": "string.quoted.single.raw.yini",
+          "begin": "'",
+          "beginCaptures": {
+            "0": { "name": "punctuation.definition.string.begin.yini" }
+          },
+          "end": "'",
+          "endCaptures": {
+            "0": { "name": "punctuation.definition.string.end.yini" }
+          }
+        },
+        {
+          "name": "string.quoted.double.raw.yini",
+          "begin": "\"",
+          "beginCaptures": {
+            "0": { "name": "punctuation.definition.string.begin.yini" }
+          },
+          "end": "\"",
+          "endCaptures": {
+            "0": { "name": "punctuation.definition.string.end.yini" }
+          }
+        }
+      ]
+    },
+    "classic-escape": {
+      "name": "constant.character.escape.yini",
+      "match": "\\\\(?:[\\\\'\"/0?abfnrtv]|x[0-9A-Fa-f]{2}|u[0-9A-Fa-f]{4}|U[0-9A-Fa-f]{8}|o[0-7]{1,3})"
+    },
+    "numbers": {
+      "patterns": [
+        {
+          "name": "constant.numeric.hex.yini",
+          "match": "(?<![A-Za-z0-9_])(?i:hex:)_?[0-9A-Fa-f](?:_?[0-9A-Fa-f])*(?![A-Za-z0-9_])"
+        },
+        {
+          "name": "constant.numeric.hex.yini",
+          "match": "(?<![A-Za-z0-9_])(?i:0x)_?[0-9A-Fa-f](?:_?[0-9A-Fa-f])*(?![A-Za-z0-9_])"
+        },
+        {
+          "name": "constant.numeric.binary.yini",
+          "match": "(?<![A-Za-z0-9_])(?:(?i:0b)|%)_?[01](?:_?[01])*(?![A-Za-z0-9_])"
+        },
+        {
+          "name": "constant.numeric.octal.yini",
+          "match": "(?<![A-Za-z0-9_])(?i:0o)_?[0-7](?:_?[0-7])*(?![A-Za-z0-9_])"
+        },
+        {
+          "name": "constant.numeric.duodecimal.yini",
+          "match": "(?<![A-Za-z0-9_])(?i:0z)_?[0-9ABEXabex](?:_?[0-9ABEXabex])*(?![A-Za-z0-9_])"
+        },
+        {
+          "name": "constant.numeric.decimal.yini",
+          "match": "(?<![A-Za-z0-9_])[+-]?[0-9](?:_?[0-9])*(?:\\.[0-9](?:_?[0-9])*)?(?:[eE][+-]?[0-9](?:_?[0-9])*)?(?![A-Za-z0-9_])"
+        }
+      ]
+    }
+  },
   "fileTypes": [
     "yini",
     "Yini",

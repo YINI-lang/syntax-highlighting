@@ -1,9 +1,10 @@
 #!/usr/bin/env yini
 # Optional shebang, must appear on first line
+@yini lenient
 
 /*
     *** NOTE ***
-    Version: 2.0.0
+    Targets YINI Specification: 1.0.0-RC.6
 
     A comprehensive YINI example that exercises as
     many syntax features, section header styles, data
@@ -11,7 +12,7 @@
 */
 
 /*
-    Example of a YINI document - all features showcased.
+    Example of a YINI document with a broad range of features.
 */
 
 /*
@@ -21,6 +22,7 @@
 ; Semicolon full-line comment. It must be the first non-whitespace content on the line.
 # Hash comment. Since RC6, hash always starts a comment.
 #   Hash comment with tabs and spaces after hash.
+#Hash comment without whitespace after the marker.
 -- Disabled line, ignored by the parser.
 --env = "dev"  // Disabled assignment, ignored by the parser.
 // Double-slash comment.
@@ -29,6 +31,7 @@
  * All basic types.
  */
 ^ TopSection                // Basic section header with an inline double-slash comment.
+commentedValue = true#Inline hash comment without surrounding whitespace.
 
 ; Strings are raw by default. Strings must be enclosed in quotes.
 rawStr = 'Hello world'
@@ -38,12 +41,14 @@ string3 = "C:\Users\Name"       // Backslashes are preserved in raw strings.
 string4 = './**'
 string5 = "\__/"                # Hash inline comment.
 string6 = '**/*.js.map'         # Hash inline comment.
+commentMarkers = 'Text with //, #, /* */, ;, and -- markers.'
 
 ; Integer numbers.
 int1 = 42
 int2 = -1
 int3 = 0
 int4 = +7
+int5 = 1_000_000
 
 ; Floating point numbers.
 float1 = 0.42
@@ -52,6 +57,7 @@ float3 = 0.0
 float4 = 0.00
 float5 = 321.0001
 float6 = -99.0099
+float7 = 1_000.5_25
 
 ; Boolean literals are case-insensitive.
 bool1 = true
@@ -75,29 +81,34 @@ null3 = NULL
 exp1 = 0.99e3
 exp2 = -0.30e2
 exp3 = 1.0e0
-exp4 = .5e2
+exp4 = 0.5e2
 exp5 = 1.23E+4
+exp6 = 1.5e1_0
 
 ; Hexadecimal notation.
 hex1 = 0xDEADBEEF
 hex2a = hex:FFEEAA
-hex2b = hex:ffeeaa
+hex2b = HEX:ffeeaa
 hex3 = 0XF390
+hex4 = hex:_FF_AA_00
 
 ; Binary notation.
 bin1 = 0b101010
 bin2 = %101010
 bin3 = 0B110011
+bin4 = 0b_1111_0001
 
 ; Octal notation.
 oct1 = 0o755
 oct2 = 0O7477
+oct3 = 0o755_644
 
 ; Dozenal notation.
 doz1 = 0z10
 doz2 = 0zx
 doz3 = 0ze
 doz4 = 0Z2Ex9
+doz5 = 0z_2EX9
 
 ; Raw strings can optionally be prefixed with R or r to be explicit.
 rawString1 = R'This is a "raw" string. No escapes are interpreted.'
@@ -109,9 +120,12 @@ classicStr1 = C'Hello,\nWorld!\tWelcome to YINI.'
 classicStr2 = c"Hello,\nWorld!\tWelcome to YINI."
 classicEscapes = C"Quotes: \"double\", \'single\'; hex \x41; unicode \u0041; octal \o101."
 
-; String concatenation uses + and must remain on one line.
+; String concatenation uses +. A line break may appear after +.
 concatStr1 = "Hello" + " " + "World!"
 concatStr2 = R"raw-" + C"classic"
+concatStr3 = "This string continues " +
+             "on the next line."
+concatModeValue = "Port: " + 8080     // Lenient mode also accepts scalar operands.
 
 ; Triple-quoted strings are multi-line strings.
 ; Triple-quoted strings are raw by default.
@@ -198,14 +212,28 @@ timeout = null
         host = "192.168.1.1"
         port = 11211
 
-< AlternativeMarkerSection
-val = 123
+; Alternative section marker characters.
+§ UnicodeMarkerSection
+unicodeMarkerValue = "Section marked with the Unicode section sign."
+
+> QuoteLikeMarkerSection
+quoteMarkerValue = "Section marked with the greater-than sign."
+
+< LessThanMarkerSection
+lessThanMarkerValue = "Section marked with the less-than sign."
 
     << AltSubSection
     val2 = "abc"
 
         <<< AltThirdLevel
         val3 = false
+
+; Repeated markers, marker separators, and numeric shorthand.
+^ MarkerDepthExamples
+    ^^ RepeatedChild                  // Repeated marker form.
+        ^_^_^ SeparatedGrandchild     // Underscores separate repeated markers visually.
+            ^4 NumericGreatGrandchild // Numeric shorthand for absolute depth four.
+            absoluteDepth = 4
 
 /END // Optional in lenient mode.
 
