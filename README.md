@@ -2,6 +2,8 @@
 
 Syntax highlighting for [YINI](https://github.com/YINI-lang) configuration files.
 
+Compatibility: This extension targets the [YINI Specification 1.0.0-RC.6](https://yini-lang.org/refs/specification/).
+
 - Works in VSCode and any editor supporting TextMate grammars.
 - See `syntaxes/yini.tmLanguage.json` for the grammar.
 - To test in VSCode, clone this repo and run `F5` to open an Extension Development Host.
