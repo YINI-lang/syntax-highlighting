@@ -1,11 +1,13 @@
-"editor.tokenColorCustomizations": {
-  "textMateRules": [
-    {
-      "scope": "meta.line.disabled.yini",
-      "settings": {
-        "foreground": "#AAAAAA",    // Light gray for "ghosted"
-        "fontStyle": "italic"
+{
+  "editor.tokenColorCustomizations": {
+    "textMateRules": [
+      {
+        "scope": "meta.line.disabled.yini",
+        "settings": {
+          "foreground": "#AAAAAA",
+          "fontStyle": "italic"
+        }
       }
-    }
-  ]
+    ]
+  }
 }
