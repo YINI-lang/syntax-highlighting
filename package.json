@@ -3,7 +3,7 @@
   "displayName": "YINI Syntax Highlighting",
   "description": "Syntax highlighting for YINI configuration files in VS Code and other TextMate-compatible editors.",
   "version": "1.0.0",
-  "publisher": "local",
+  "publisher": "yini-lang",
   "license": "MIT",
   "icon": "images/icon.png",
   "scripts": {

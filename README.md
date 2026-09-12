@@ -32,6 +32,8 @@ See the [maintainer guide](docs/Maintainer-Doc.md) for scope inspection and pack
 
 Pull requests, bug reports, and improvements are welcome!
 
+Marketplace publisher: **YINI-lang** (`yini-lang`). Contributors and coding agents should also read [AGENTS.md](AGENTS.md).
+
 ## License
 
 MIT License
