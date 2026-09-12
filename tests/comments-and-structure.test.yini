@@ -1,0 +1,35 @@
+// SYNTAX TEST "source.yini" "YINI comments, directives, and document structure"
+#!/usr/bin/env yini
+// <------------------- comment.line.shebang.yini
+
+@yini lenient
+// <----- keyword.control.directive.yini
+//      ^^^^^^^ storage.modifier.mode.yini
+
+// A double-slash comment
+// <----------------------- comment.line.double-slash.yini
+#A hash comment does not require a space
+// <-------------------------------------- comment.line.hash.yini
+; A semicolon starts a comment at the beginning of a line
+// <--------------------------------------------------------- comment.line.semicolon.yini
+/* A block comment */
+// <------------------- comment.block.yini
+-- disabled_key = "this whole line is disabled"
+// <---------------------------------------------- meta.line.disabled.yini
+
+^ Service
+// <- punctuation.definition.section.yini
+//^^^^^^^ entity.name.section.yini
+^_^ Database
+// <--- punctuation.definition.section.yini
+//  ^^^^^^^^ entity.name.section.yini
+§2 Cache
+// <-- punctuation.definition.section.yini
+// ^^^^^ entity.name.section.yini
+> Child
+// <- punctuation.definition.section.yini
+< Parent
+// <- punctuation.definition.section.yini
+
+/END
+// <--- keyword.control.terminator.yini

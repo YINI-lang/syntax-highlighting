@@ -164,7 +164,7 @@
             "1": { "name": "storage.type.string.yini" },
             "2": { "name": "punctuation.definition.string.begin.yini" }
           },
-          "end": "'",
+          "end": "'|$",
           "endCaptures": {
             "0": { "name": "punctuation.definition.string.end.yini" }
           },
@@ -179,7 +179,7 @@
             "1": { "name": "storage.type.string.yini" },
             "2": { "name": "punctuation.definition.string.begin.yini" }
           },
-          "end": "\"",
+          "end": "\"|$",
           "endCaptures": {
             "0": { "name": "punctuation.definition.string.end.yini" }
           },
@@ -194,7 +194,7 @@
             "1": { "name": "storage.type.string.yini" },
             "2": { "name": "punctuation.definition.string.begin.yini" }
           },
-          "end": "'",
+          "end": "'|$",
           "endCaptures": {
             "0": { "name": "punctuation.definition.string.end.yini" }
           }
@@ -206,7 +206,7 @@
             "1": { "name": "storage.type.string.yini" },
             "2": { "name": "punctuation.definition.string.begin.yini" }
           },
-          "end": "\"",
+          "end": "\"|$",
           "endCaptures": {
             "0": { "name": "punctuation.definition.string.end.yini" }
           }
@@ -217,7 +217,7 @@
           "beginCaptures": {
             "0": { "name": "punctuation.definition.string.begin.yini" }
           },
-          "end": "'",
+          "end": "'|$",
           "endCaptures": {
             "0": { "name": "punctuation.definition.string.end.yini" }
           }
@@ -228,7 +228,7 @@
           "beginCaptures": {
             "0": { "name": "punctuation.definition.string.begin.yini" }
           },
-          "end": "\"",
+          "end": "\"|$",
           "endCaptures": {
             "0": { "name": "punctuation.definition.string.end.yini" }
           }

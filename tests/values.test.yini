@@ -1,0 +1,39 @@
+// SYNTAX TEST "source.yini" "YINI keys, collections, literals, and operators"
+
+enabled = true
+// <------ variable.other.key.yini
+//      ^ keyword.operator.assignment.yini
+//        ^^^^ constant.language.boolean.yini
+missing: null
+// <----- variable.other.key.yini
+//     ^ punctuation.separator.key-value.yini
+//       ^^^^ constant.language.null.yini
+
+decimal = -12_345.67e+8
+//        ^^^^^^^^^^^^^ constant.numeric.decimal.yini
+hex_prefix = 0x_FF_A0
+//           ^^^^^^^^ constant.numeric.hex.yini
+hex_label = hex:CA_FE
+//          ^^^^^^^^^ constant.numeric.hex.yini
+binary_prefix = 0b_1010
+//              ^^^^^^^ constant.numeric.binary.yini
+binary_short = %1101
+//             ^^^^^ constant.numeric.binary.yini
+octal = 0o755
+//      ^^^^^ constant.numeric.octal.yini
+duodecimal = 0z1A_EX
+//           ^^^^^^^ constant.numeric.duodecimal.yini
+
+servers = ["api", "worker"]
+//        ^ punctuation.section.brackets.begin.yini
+//              ^ punctuation.separator.sequence.yini
+//                        ^ punctuation.section.brackets.end.yini
+metadata = {region: "eu", active: on}
+//         ^ punctuation.section.braces.begin.yini
+//                ^ punctuation.separator.key-value.yini
+//                      ^ punctuation.separator.sequence.yini
+//                              ^ punctuation.separator.key-value.yini
+//                                ^^ constant.language.boolean.yini
+//                                  ^ punctuation.section.braces.end.yini
+combined = "left" + "right"
+//                ^ keyword.operator.concatenation.yini

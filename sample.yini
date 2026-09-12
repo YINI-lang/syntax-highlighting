@@ -1,9 +1,4 @@
-
-
-
-@yini
-@Yini
-@YINI
+@yini lenient
 
 /*
     Example of a YINI document.
@@ -13,7 +8,7 @@
 Enabled = true
 customName = 'MyService'
 
-    ^^ Cache                // Defines Cache, a sub-section of Server.
+    ^^ Cache                // Defines Cache, a sub-section of Service.
     Type = 'redis'
     TTL = 3600
 

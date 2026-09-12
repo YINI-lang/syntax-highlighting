@@ -1,0 +1,11 @@
+.github/**
+.vscode/**
+docs/**
+tests/**
+node_modules/**
+comprehensive-example*.yini
+sample*.yini
+syntaxes/old-yini.tmLanguage.json
+.gitignore
+package-lock.json
+*.vsix

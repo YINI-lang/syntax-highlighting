@@ -1,21 +1,32 @@
 # YINI Syntax Highlighting
 
-Syntax highlighting for [YINI](https://github.com/YINI-lang) configuration files.
+Syntax highlighting for [YINI](https://github.com/YINI-lang) configuration files in VS Code and other editors that support TextMate grammars.
 
 Compatibility: This extension targets the [YINI Specification 1.0.0-RC.6](https://yini-lang.org/refs/specification/).
 
-- Works in VSCode and any editor supporting TextMate grammars.
-- See `syntaxes/yini.tmLanguage.json` for the grammar.
-- To test in VSCode, clone this repo and run `F5` to open an Extension Development Host.
-
 ## Usage
 
-1. Open `.yini` files in VSCode.
-2. If you use another editor (Sublime, Atom, etc), you can use `yini.tmLanguage.json` as your syntax file.
+1. Install the extension and open a file ending in `.yini`.
+2. Confirm that the language mode in the lower-right corner says **YINI**.
+
+Other TextMate-compatible editors can use [`syntaxes/yini.tmLanguage.json`](syntaxes/yini.tmLanguage.json) directly.
+
+## Development
+
+Press `F5` in VS Code to open an Extension Development Host. The [lenient example](comprehensive-example.yini) and [strict example](comprehensive-example.strict.yini) demonstrate the same features in the same order.
+
+Run the automated grammar, scope, fixture, and parser tests with:
+
+```shell
+npm ci
+npm test
+```
+
+See the [maintainer guide](docs/Maintainer-Doc.md) for scope inspection and packaging instructions.
 
 ## Customization
 
-- [Customizing Disabled Line Appearance in VSCode](https://github.com/YINI-lang/yini-syntax/blob/main/docs/VSCode.md)
+- [Customizing disabled-line appearance in VS Code](docs/VSCode.md)
   
 ## Contributing
 
