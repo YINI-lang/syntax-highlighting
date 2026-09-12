@@ -6,7 +6,7 @@ Compatibility: This extension targets the [YINI Specification 1.0.0-RC.6](https:
 
 ## Usage
 
-1. Install the extension and open a file ending in `.yini`.
+1. Install [YINI Syntax Highlighting from the VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=yini-lang.yini-syntax-highlighting) and open a file ending in `.yini`.
 2. Confirm that the language mode in the lower-right corner says **YINI**.
 
 Other TextMate-compatible editors can use [`syntaxes/yini.tmLanguage.json`](syntaxes/yini.tmLanguage.json) directly.
@@ -22,7 +22,7 @@ npm ci
 npm test
 ```
 
-See the [maintainer guide](docs/Maintainer-Doc.md) for scope inspection and packaging instructions.
+See the [maintainer guide](docs/Maintainer-Doc.md) for scope inspection, packaging, and clean Marketplace installation instructions.
 
 ## Customization
 

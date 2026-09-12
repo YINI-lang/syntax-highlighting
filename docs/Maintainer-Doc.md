@@ -52,3 +52,31 @@ Install it locally with:
 ```shell
 code --install-extension yini-syntax-highlighting-1.0.0.vsix
 ```
+
+## Test a clean Marketplace installation
+
+Remove any copy previously installed from a local VSIX before testing the Marketplace release.
+
+In the VS Code interface:
+
+1. Open a normal VS Code window, not the Extension Development Host.
+2. Open **Extensions** with `Ctrl+Shift+X` or `Cmd+Shift+X`.
+3. Search for `@id:yini-lang.yini-syntax-highlighting`.
+4. If it is already installed, select its gear menu, choose **Uninstall**, and reload VS Code when prompted.
+5. Find **YINI Syntax Highlighting** by **YINI-lang** again and select **Install**.
+
+First, list the installed extensions so you can identify any older YINI highlighting builds:
+
+```shell
+code --list-extensions
+```
+
+An older locally packaged build may use the ID `local.yini-syntax-highlighting`. Remove it, if present, before installing the Marketplace version:
+
+```shell
+code --uninstall-extension local.yini-syntax-highlighting
+code --uninstall-extension yini-lang.yini-syntax-highlighting
+code --install-extension yini-lang.yini-syntax-highlighting
+```
+
+Skip any uninstall command whose extension ID is not installed. If you only tested with `F5` in an Extension Development Host, no extension was permanently installed; close that development window instead. After installation, open the [lenient example](../comprehensive-example.yini) and [strict example](../comprehensive-example.strict.yini), confirm the language mode is **YINI**, and inspect representative tokens with **Developer: Inspect Editor Tokens and Scopes**.
