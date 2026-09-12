@@ -1,3 +1,0 @@
-Dead-link Checker
-
-Check for dead links.

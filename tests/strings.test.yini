@@ -1,0 +1,38 @@
+// SYNTAX TEST "source.yini" "YINI raw, classic, prefixed, and triple strings"
+
+plain_single = 'raw text // not a comment'
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.single.raw.yini
+//                           ^^ - comment.line.double-slash.yini
+plain_double = "raw text # not a comment"
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double.raw.yini
+//                          ^ - comment.line.hash.yini
+explicit_raw = R"backslash stays: \n"
+//             ^ storage.type.string.yini
+//              ^^^^^^^^^^^^^^^^^^^^^ string.quoted.double.raw.yini
+classic = C"line one\nline two"
+//        ^ storage.type.string.yini
+//                  ^^ constant.character.escape.yini
+classic_single = c'escaped quote: \' and hex: \x41'
+//               ^ storage.type.string.yini
+//                                ^^ constant.character.escape.yini
+//                                            ^^^^ constant.character.escape.yini
+
+raw_triple = """first line
+//           ^^^ punctuation.definition.string.begin.yini
+//           ^^^^^^^^^^^^^ string.quoted.triple.double.raw.yini
+second line // still string
+//          ^^ - comment.line.double-slash.yini
+third line"""
+//        ^^^ punctuation.definition.string.end.yini
+
+classic_triple = C"""first line\n
+//               ^ storage.type.string.yini
+//                ^^^ punctuation.definition.string.begin.yini
+//                             ^^ constant.character.escape.yini
+second line"""
+//         ^^^ punctuation.definition.string.end.yini
+
+unclosed = "only this line
+next_key = true
+// <------ variable.other.key.yini
+//         ^^^^ constant.language.boolean.yini

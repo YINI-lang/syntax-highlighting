@@ -1,11 +1,20 @@
 {
   "name": "yini-syntax-highlighting",
   "displayName": "YINI Syntax Highlighting",
-  "description": "Syntax highlighting for the YINI config files (works in VSCode and other editors supporting TextMate grammars).",
+  "description": "Syntax highlighting for YINI configuration files in VS Code and other TextMate-compatible editors.",
   "version": "1.0.0",
   "publisher": "local",
   "license": "MIT",
   "icon": "images/icon.png",
+  "scripts": {
+    "test": "npm run test:grammar && npm run test:scopes && npm run test:fixtures && npm run test:yini",
+    "test:grammar": "node tests/validate-grammar.mjs",
+    "test:scopes": "node tests/run-scope-tests.cjs",
+    "test:fixtures": "node tests/check-fixture-sync.mjs",
+    "test:yini": "yini validate --warnings-as-errors sample.yini comprehensive-example.yini && yini --strict validate --warnings-as-errors sample.strict.yini comprehensive-example.strict.yini",
+    "package:check": "vsce ls",
+    "package": "vsce package"
+  },
   "engines": {
     "vscode": "^1.80.0"
   },
@@ -45,10 +54,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/YINI-lang/yini-syntax-highlighting.git"
+    "url": "git+https://github.com/YINI-lang/syntax-highlighting.git"
   },
-  "homepage": "https://github.com/YINI-lang/yini-syntax-highlighting#readme",
+  "homepage": "https://github.com/YINI-lang/syntax-highlighting#readme",
   "bugs": {
-    "url": "https://github.com/YINI-lang/yini-syntax-highlighting/issues"
+    "url": "https://github.com/YINI-lang/syntax-highlighting/issues"
+  },
+  "devDependencies": {
+    "@carlwr/textmate-validate": "1.0.1",
+    "@vscode/vsce": "3.9.2",
+    "vscode-tmgrammar-test": "0.1.3",
+    "yini-cli": "1.6.2"
   }
 }
