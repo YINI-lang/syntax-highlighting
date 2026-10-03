@@ -6,8 +6,6 @@
 >
 > If any instruction in this file is unclear, ambiguous, or conflicts with the repository state, do not proceed with changes that depend on that instruction. Ask the human maintainer for clarification first.
 
-See also: [Shared AI agent instructions for the YINI project family](../AGENTS.md)
-
 ---
 
 ## Repository guidance
