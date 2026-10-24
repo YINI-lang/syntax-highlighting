@@ -1,5 +1,8 @@
 # YINI Syntax Highlighting
 
+[![Install from the VS Code Marketplace](https://img.shields.io/badge/VS%20Code-Install-007ACC)](https://marketplace.visualstudio.com/items?itemName=yini-lang.yini-syntax-highlighting)
+[![CI status](https://github.com/YINI-lang/syntax-highlighting/actions/workflows/ci.yml/badge.svg)](https://github.com/YINI-lang/syntax-highlighting/actions/workflows/ci.yml)
+
 Syntax highlighting for [YINI](https://github.com/YINI-lang) configuration files in VS Code and other editors that support TextMate grammars.
 
 Compatibility: This extension targets the [YINI Specification 1.0.0-RC.6](https://yini-lang.org/refs/specification/).
