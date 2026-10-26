@@ -46,4 +46,4 @@ MIT License
 **^YINI ≡**  
 > YINI is a human-readable configuration format designed for clarity, readability, explicit structure, predictability, and deterministic parsing.
 
-[yini-lang.org](https://yini-lang.org/?utm_source=github&utm_medium=referral&utm_campaign=yini_syntax_hl&utm_content=readme_footer) · [YINI on GitHub](https://github.com/YINI-lang)  
+[yini-lang.org](https://yini-lang.org/?utm_source=github&utm_campaign=yini_syntax_hl&utm_medium=referral&utm_content=readme_footer) · [YINI on GitHub](https://github.com/YINI-lang)  
