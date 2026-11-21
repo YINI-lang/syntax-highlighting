@@ -4,7 +4,7 @@
 
 /*
     *** NOTE ***
-    Targets YINI Specification: 1.0.0-RC.6
+    Targets YINI Specification: 1.0.0-RC.7
 
     A comprehensive YINI example that exercises as
     many syntax features, section header styles, data
@@ -20,7 +20,7 @@
  */
 // Block comments as above, and inline double-slash comments.
 ; Semicolon full-line comment. It must be the first non-whitespace content on the line.
-# Hash comment. Since RC6, hash always starts a comment.
+# Hash comment. Hash always starts a comment outside strings and backticked names.
 #   Hash comment with tabs and spaces after hash.
 #Hash comment without whitespace after the marker.
 -- Disabled line, ignored by the parser.
@@ -94,7 +94,7 @@ hex4 = hex:_FF_AA_00
 
 ; Binary notation.
 bin1 = 0b101010
-bin2 = %101010
+bin2 = 0b_101010
 bin3 = 0B110011
 bin4 = 0b_1111_0001
 
@@ -114,15 +114,17 @@ doz5 = 0z_2EX9
 rawString1 = R'This is a "raw" string. No escapes are interpreted.'
 rawString2 = r"This is a\n**raw**\nstring. No escapes are interpreted."
 
-; Classic strings are prefixed with C or c.
+; Escaped strings use E or e. The older C/c prefixes remain valid but are deprecated.
 ; They support and interpret escape sequences such as \n and \t.
-classicStr1 = C'Hello,\nWorld!\tWelcome to YINI.'
-classicStr2 = c"Hello,\nWorld!\tWelcome to YINI."
-classicEscapes = C"Quotes: \"double\", \'single\'; hex \x41; unicode \u0041; octal \o101."
+escapedStr1 = E'Hello,\nWorld!\tWelcome to YINI.'
+escapedStr2 = e"Hello,\nWorld!\tWelcome to YINI."
+escapedEscapes = E"Quotes: \"double\", \'single\'; hex \x41; unicode \u0041; octal \o101; backtick \`."
+
+legacyClassicStr = C"Older C-prefixed strings still work."
 
 ; String concatenation uses +. A line break may appear after +.
 concatStr1 = "Hello" + " " + "World!"
-concatStr2 = R"raw-" + C"classic"
+concatStr2 = R"raw-" + E"escaped"
 concatStr3 = "This string continues " +
              "on the next line."
 concatModeValue = "Port: " + 8080     // Lenient mode also accepts scalar operands.
@@ -131,22 +133,35 @@ concatModeValue = "Port: " + 8080     // Lenient mode also accepts scalar operan
 ; Triple-quoted strings are raw by default.
 tripleQStr = """Raw triple-quoted
 string with \n not interpreted
-and line breaks kept."""
+and source line endings normalized to LF."""
 
 ; R-prefixed triple-quoted strings are explicitly raw.
 tripleQRawStr = R"""Explicit raw triple-quoted
-string with line breaks kept."""
+string with source line endings normalized to LF."""
 
-; C-prefixed triple-quoted strings interpret escape sequences.
-tripleQClassicStr = C"""Classic triple-quoted string.
+; E/e-prefixed triple-quoted strings interpret escape sequences.
+tripleQEscapedStr = E"""Escaped triple-quoted string.
 Escapes such as \n and \t are interpreted."""
 
-tripleQClassicStr2 = c"""Lowercase classic triple-quoted string.
+tripleQEscapedStr2 = e"""Lowercase escaped triple-quoted string.
 Escapes such as \n and \t are interpreted."""
+
+; The older c prefix still means an escaped string, including triple quotes.
+legacyTripleStr = c"""Legacy escaped string with \n interpreted."""
+
+; Command strings contain text; YINI does not run these commands.
+; Leading spaces used for layout are removed. Backslashes stay literal.
+commandString = command"""
+    echo "Hello"
+    example_key = literal text
+    ^ This is content, not a section
+    -- This is content, not a disabled line
+    echo """embedded quotes"""
+"""
 
 ; Section names in headers can be backticked if they include
 ; spaces or special characters.
-^ `Backticked Section Name`
+^ `Backticked \`Section\` Name`
 
 ; Member keys can also be backticked.
 `Project Name` = "My Project"
@@ -156,13 +171,18 @@ Escapes such as \n and \t are interpreted."""
 `Amanda's Project` = "Special characters in a key"
 `Build-Target` = "release"
 
+; Backticks and backslashes can be escaped in backticked names.
+`a\`b` = "A key containing a backtick"
+`path\\name` = "A key containing a backslash"
+`` = "An empty key is allowed, but discouraged."
+
     ^^ Cache             // Nested section. Indentation is for readability only.
     type = "redis"
     TTL = 3600
     enabled = false
     list = [1, 2, 3, "str", true, null]
     list_trailing_comma = ["a", "b",]    // Lenient mode accepts a trailing comma.
-    implicitNull =                       // Lenient mode treats a missing value as null.
+    explicitNull = null                  // A missing value would produce a warning in lenient mode.
     nestedList = [
         ["stylesheet", "css/general.css"],
         ["stylesheet", "css/themes.css"]

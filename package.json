@@ -2,16 +2,17 @@
   "name": "yini-syntax-highlighting",
   "displayName": "YINI Syntax Highlighting",
   "description": "Syntax highlighting for YINI configuration files in VS Code and other TextMate-compatible editors.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "publisher": "yini-lang",
   "license": "MIT",
   "icon": "images/icon.png",
   "scripts": {
-    "test": "npm run test:grammar && npm run test:scopes && npm run test:fixtures && npm run test:yini",
+    "test": "npm run test:grammar && npm run test:scopes && npm run test:fixtures && npm run test:yini && npm run test:rc7",
     "test:grammar": "node tests/validate-grammar.mjs",
     "test:scopes": "node tests/run-scope-tests.cjs",
     "test:fixtures": "node tests/check-fixture-sync.mjs",
     "test:yini": "yini validate --warnings-as-errors sample.yini comprehensive-example.yini && yini --strict validate --warnings-as-errors sample.strict.yini comprehensive-example.strict.yini",
+    "test:rc7": "node --test tests/rc7.test.mjs",
     "package:check": "vsce ls",
     "package": "vsce package"
   },
@@ -64,6 +65,7 @@
     "@carlwr/textmate-validate": "1.1.0",
     "@vscode/vsce": "3.9.2",
     "vscode-tmgrammar-test": "0.1.3",
-    "yini-cli": "1.6.4"
+    "yini-cli": "2.0.0",
+    "yini-parser": "2.0.0"
   }
 }

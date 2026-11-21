@@ -1,0 +1,9 @@
+@yini lenient
+
+// Intentional warning cases. Keep these out of the warning-free examples.
+^ Warnings
+deprecatedBinary = %1010
+missingValue =
+commentOnlyValue = # This assignment also has a missing value.
+
+/END

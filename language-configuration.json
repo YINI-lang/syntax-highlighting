@@ -72,6 +72,6 @@
       "`"
     ]
   ],
-  "wordPattern": "(`[^`\\r\\n]*`)|([A-Za-z_][A-Za-z0-9_]*)",
+  "wordPattern": "(`(?:\\\\[`\\\\]|[^`\\\\\\x00-\\x1F\\x7F-\\x9F])*`)|([A-Za-z_][A-Za-z0-9_]*)",
   "autoCloseBefore": ";:,=]}> \n\t"
 }

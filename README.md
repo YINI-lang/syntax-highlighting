@@ -5,7 +5,11 @@
 
 Syntax highlighting for [YINI](https://github.com/YINI-lang) configuration files in VS Code and other editors that support TextMate grammars.
 
-Compatibility: This extension targets the [YINI Specification 1.0.0-RC.6](https://yini-lang.org/refs/specification/).
+Compatibility: This extension targets the [YINI Specification 1.0.0-RC.7](https://github.com/YINI-lang/YINI-spec/blob/v1.0.0-rc.7/YINI-Specification.md), dated 2026-11-14. See the [compatibility notes](docs/RC7-Compatibility.md) for the rules covered by the tests.
+
+The extension highlights raw strings, escaped strings using `E` or `e`, multiline `command"""` strings, and backticked names with escaped backticks or backslashes. Older `C`/`c` strings and `%` binary numbers still receive highlighting, although the specification recommends newer forms.
+
+Syntax highlighting assigns styles to text. It does not validate a document, select a parser mode, or run command strings. A `.strict.yini` filename or `@yini strict` marker describes the intended mode; the parser or tool must still be set to strict mode.
 
 ## Usage
 
@@ -25,12 +29,14 @@ npm ci
 npm test
 ```
 
-See the [maintainer guide](docs/Maintainer-Doc.md) for scope inspection, packaging, and clean Marketplace installation instructions.
+Development requires Node.js 22 or newer. The tests use pinned releases of `yini-cli` and `yini-parser` 2.0.0. See the [maintainer guide](docs/Maintainer-Doc.md) for checking highlighting, packaging, and testing a local installation.
 
 ## Customization
 
-- [Customizing disabled-line appearance in VS Code](docs/VSCode.md)
-  
+Comments appear green when this repository is opened in VS Code. Lines beginning with `--` keep their separate disabled-line style. Installing the extension elsewhere uses the user's chosen theme.
+
+See [comment colors and disabled-line appearance](docs/VSCode.md) for optional settings that affect only YINI files, including greens for light and high-contrast themes.
+
 ## Contributing
 
 Pull requests, bug reports, and improvements are welcome!
