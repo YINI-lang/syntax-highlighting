@@ -11,3 +11,4 @@ AGENTS.md
 package-lock.json
 *.vsix
 debug.log
+.agents/**

@@ -27,7 +27,8 @@
     "ini",
     "configuration",
     "textmate",
-    "syntax-highlighting"
+    "syntax-highlighting",
+    "yini-lang"
   ],
   "contributes": {
     "languages": [
