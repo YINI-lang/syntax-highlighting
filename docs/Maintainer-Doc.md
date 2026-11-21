@@ -29,6 +29,8 @@ npm run test:rc7
 
 Files ending in `.test.yini` contain highlighting assertions. They are test inputs, not complete example documents to validate with the CLI.
 
+---
+
 ## Check highlighting in VS Code
 
 1. Open this repository's root folder in VS Code.
@@ -41,6 +43,8 @@ Files ending in `.test.yini` contain highlighting assertions. They are test inpu
 Use **Developer: Inspect Editor Tokens and Scopes** to see the labels assigned by the grammar. Check that text such as `#`, `--`, and section markers inside command strings remains string content. Check that normal highlighting resumes after the closing delimiter.
 
 No build step is needed. See the [color settings guide](VSCode.md) for the repository's green-comment rules.
+
+---
 
 ## Prepare the local package
 
@@ -57,6 +61,8 @@ For version `1.1.0`, this creates `yini-syntax-highlighting-1.1.0.vsix` in the r
 
 Repository links in the README should resolve on GitHub when viewed from the Marketplace. Check the packaged README too.
 
+---
+
 ## Test an isolated local installation
 
 Use a separate profile and extension directory so testing does not replace your installed extension. For example, run these commands in PowerShell from the repository root:
@@ -72,6 +78,8 @@ Confirm that the installed identity and version are `yini-lang.yini-syntax-highl
 
 This folder uses the repository's comment-color settings. Open a YINI file outside the repository to confirm that a normal installation respects the chosen theme.
 
+---
+
 ## Finish release preparation
 
 Before publishing, check that:
@@ -84,4 +92,25 @@ Before publishing, check that:
 
 Building or installing the local VSIX does not publish it. Publishing, pushing a release tag, and creating a public release are separate steps.
 
-After a future Marketplace release, use a separate test profile to install `yini-lang.yini-syntax-highlighting` from the Marketplace and repeat the checks. Until then, the local VSIX is the candidate being tested.
+---
+
+## Publish through the Marketplace website
+
+You can publish the VSIX file through the Marketplace website. See the [official publishing guide](https://code.visualstudio.com/api/working-with-extensions/publishing-extension#publish-an-extension).
+
+Before uploading, replace **Unreleased** in `CHANGELOG.md` with the release date, then run `npm run package` again to include that change. If version `1.1.0` has already been published, choose a higher version, update both package files, and build a new package. Use the matching version and filename in the steps below.
+
+1. Open [Manage Marketplace extensions](https://marketplace.visualstudio.com/manage).
+2. Sign in with the Microsoft account that manages the **`yini-lang`** publisher.
+3. Select that publisher and find **YINI Syntax Highlighting**.
+4. Open its **… / More actions** menu and choose **Update**. Use the existing extension entry to keep the identity `yini-lang.yini-syntax-highlighting`.
+5. Upload the file from your repository root:
+
+   ```text
+   yini-syntax-highlighting-1.1.0.vsix
+   ```
+
+6. Submit the update and wait for Marketplace validation to finish.
+7. Check the [public listing](https://marketplace.visualstudio.com/items?itemName=yini-lang.yini-syntax-highlighting) and confirm that version **1.1.0** appears.
+
+After publishing, use a separate test profile to install `yini-lang.yini-syntax-highlighting` from the Marketplace and repeat the highlighting checks.

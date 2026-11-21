@@ -2,7 +2,7 @@
 
 All notable changes to the YINI syntax-highlighting extension are documented here.
 
-## 1.1.0 - Unreleased
+## 1.1.0 - 2026-11-21
 
 ### Added
 
