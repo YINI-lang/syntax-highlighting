@@ -1,12 +1,13 @@
 @yini lenient
 
 /*
+    Targets YINI Specification 1.0.0-RC.7.
     Example of a YINI document.
 */
 
 ^ Service                   // Defines a section named Service.
 Enabled = true
-customName = 'MyService'
+customName = E"MyService"
 
     ^^ Cache                // Defines Cache, a sub-section of Service.
     Type = 'redis'

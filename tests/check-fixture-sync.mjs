@@ -1,34 +1,10 @@
 import { readFile } from "node:fs/promises";
+import { orderedFeatures } from "./fixture-features.mjs";
 
 const fixturePaths = [
   "comprehensive-example.yini",
   "comprehensive-example.strict.yini",
 ];
-
-function orderedFeatures(contents) {
-  const lines = contents.split(/\r?\n/u);
-  const sections = [];
-  const members = [];
-
-  for (const line of lines) {
-    const section = line.match(
-      /^\s*[\^§<>](?:_?[\^§<>]|\d)*\s+(`[^`]+`|[A-Za-z_][A-Za-z0-9_]*)/u,
-    );
-    if (section) {
-      sections.push(section[1]);
-      continue;
-    }
-
-    const member = line.match(
-      /^\s*(`[^`]+`|[A-Za-z_][A-Za-z0-9_]*)\s*[:=]/u,
-    );
-    if (member) {
-      members.push(member[1]);
-    }
-  }
-
-  return { sections, members };
-}
 
 const [lenient, strict] = await Promise.all(
   fixturePaths.map(async (path) => orderedFeatures(await readFile(path, "utf8"))),

@@ -1,82 +1,87 @@
 # Maintainer guide
 
-## Test the extension in VS Code
+The extension targets YINI Specification 1.0.0-RC.7. See the [compatibility notes](RC7-Compatibility.md) for the source version and test coverage.
 
-1. Open this repository's root folder in VS Code.
-2. Press `F5`, or open **Run and Debug** and select **Run Extension**.
-3. In the Extension Development Host, open either [the lenient example](../comprehensive-example.yini) or [the strict example](../comprehensive-example.strict.yini).
-4. Confirm that the language mode in the lower-right corner says **YINI**.
+## Run the automated checks
 
-To inspect the exact highlighting assigned to a token, place the cursor on it and run **Developer: Inspect Editor Tokens and Scopes** from the Command Palette.
-
-No build step is needed for this manual check.
-
-## Run the automated tests
-
-Install the exact development dependencies recorded in `package-lock.json`, then run the complete test suite:
+Use Node.js 22 or newer. CI uses Node.js 24. Install the exact development dependencies recorded in `package-lock.json`, then run the tests:
 
 ```shell
 npm ci
 npm test
 ```
 
-The suite validates every TextMate regular expression, checks representative token scopes, confirms that the comprehensive examples remain synchronized, and parses both examples with the appropriate YINI mode.
+On Windows, use `npm.cmd` if PowerShell blocks `npm.ps1`.
 
-Individual checks are also available:
+The suite checks the grammar's regular expressions, token labels, example order, and parsing in both modes. It also checks RC.7 string values, expected warnings, and invalid inputs. The parser and CLI are both pinned to version 2.0.0.
+
+The four public examples must pass without warnings. Intentional warning cases belong in `tests/fixtures/rc7-warnings.yini`. Their tests check the warnings and verify that the CLI fails when `--warnings-as-errors` is selected.
+
+Individual checks are available:
 
 ```shell
 npm run test:grammar
 npm run test:scopes
 npm run test:fixtures
 npm run test:yini
+npm run test:rc7
 ```
 
-## Package the extension
+Files ending in `.test.yini` contain highlighting assertions. They are test inputs, not complete example documents to validate with the CLI.
 
-First inspect the files that will be included:
+## Check highlighting in VS Code
+
+1. Open this repository's root folder in VS Code.
+2. Press `F5`, or choose **Run Extension** in **Run and Debug**.
+3. In the Extension Development Host, open the [lenient example](../comprehensive-example.yini) and [strict example](../comprehensive-example.strict.yini).
+4. Confirm that the language mode says **YINI**.
+5. Check escaped strings, command strings, backticked names, nested objects, comments, and disabled lines.
+6. Switch between a light theme, a dark theme, and both built-in high-contrast themes. Comments should be readable green; disabled lines should remain separate.
+
+Use **Developer: Inspect Editor Tokens and Scopes** to see the labels assigned by the grammar. Check that text such as `#`, `--`, and section markers inside command strings remains string content. Check that normal highlighting resumes after the closing delimiter.
+
+No build step is needed. See the [color settings guide](VSCode.md) for the repository's green-comment rules.
+
+## Prepare the local package
+
+Keep the extension identity `yini-lang.yini-syntax-highlighting`. Update the extension version in both package files when preparing a release; it is independent of the specification version. Keep the changelog entry marked **Unreleased** until a release date is chosen.
+
+Inspect the included files, then build the VSIX:
 
 ```shell
 npm run package:check
-```
-
-Then create the VSIX package:
-
-```shell
 npm run package
 ```
 
-For version `1.0.0`, this creates `yini-syntax-highlighting-1.0.0.vsix` in the repository root.
+For version `1.1.0`, this creates `yini-syntax-highlighting-1.1.0.vsix` in the repository root. The package should include the grammar, language configuration, icon, README, changelog, support information, and license. Development dependencies, tests, examples, workspace settings, and maintainer documentation are excluded.
 
-Install it locally with:
+Repository links in the README should resolve on GitHub when viewed from the Marketplace. Check the packaged README too.
 
-```shell
-code --install-extension yini-syntax-highlighting-1.0.0.vsix
+## Test an isolated local installation
+
+Use a separate profile and extension directory so testing does not replace your installed extension. For example, run these commands in PowerShell from the repository root:
+
+```powershell
+$yiniTestRoot = Join-Path $env:TEMP "yini-rc7-vscode"
+code --user-data-dir "$yiniTestRoot/profile" --extensions-dir "$yiniTestRoot/extensions" --install-extension ./yini-syntax-highlighting-1.1.0.vsix --force
+code --user-data-dir "$yiniTestRoot/profile" --extensions-dir "$yiniTestRoot/extensions" --list-extensions --show-versions
+code --user-data-dir "$yiniTestRoot/profile" --extensions-dir "$yiniTestRoot/extensions" --new-window .
 ```
 
-## Test a clean Marketplace installation
+Confirm that the installed identity and version are `yini-lang.yini-syntax-highlighting@1.1.0`. Open both comprehensive examples and repeat the highlighting checks.
 
-Remove any copy previously installed from a local VSIX before testing the Marketplace release.
+This folder uses the repository's comment-color settings. Open a YINI file outside the repository to confirm that a normal installation respects the chosen theme.
 
-In the VS Code interface:
+## Finish release preparation
 
-1. Open a normal VS Code window, not the Extension Development Host.
-2. Open **Extensions** with `Ctrl+Shift+X` or `Cmd+Shift+X`.
-3. Search for `@id:yini-lang.yini-syntax-highlighting`.
-4. If it is already installed, select its gear menu, choose **Uninstall**, and reload VS Code when prompted.
-5. Find **YINI Syntax Highlighting** by **YINI-lang** again and select **Install**.
+Before publishing, check that:
 
-First, list the installed extensions so you can identify any older YINI highlighting builds:
+- `npm ci` and `npm test` pass.
+- Markdown links work and examples match the documented behavior.
+- Package contents are correct and the VSIX installs locally.
+- Highlighting and comment colors have been reviewed in VS Code.
+- The changelog describes the final changes and any remaining limitations.
 
-```shell
-code --list-extensions
-```
+Building or installing the local VSIX does not publish it. Publishing, pushing a release tag, and creating a public release are separate steps.
 
-An older locally packaged build may use the ID `local.yini-syntax-highlighting`. Remove it, if present, before installing the Marketplace version:
-
-```shell
-code --uninstall-extension local.yini-syntax-highlighting
-code --uninstall-extension yini-lang.yini-syntax-highlighting
-code --install-extension yini-lang.yini-syntax-highlighting
-```
-
-Skip any uninstall command whose extension ID is not installed. If you only tested with `F5` in an Extension Development Host, no extension was permanently installed; close that development window instead. After installation, open the [lenient example](../comprehensive-example.yini) and [strict example](../comprehensive-example.strict.yini), confirm the language mode is **YINI**, and inspect representative tokens with **Developer: Inspect Editor Tokens and Scopes**.
+After a future Marketplace release, use a separate test profile to install `yini-lang.yini-syntax-highlighting` from the Marketplace and repeat the checks. Until then, the local VSIX is the candidate being tested.

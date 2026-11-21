@@ -2,12 +2,48 @@
   "editor.tokenColorCustomizations": {
     "textMateRules": [
       {
+        "scope": "source.yini comment",
+        "settings": {
+          "foreground": "#6A9955"
+        }
+      },
+      {
         "scope": "meta.line.disabled.yini",
         "settings": {
           "foreground": "#AAAAAA",
           "fontStyle": "italic"
         }
       }
-    ]
+    ],
+    "[*Light*]": {
+      "textMateRules": [
+        {
+          "scope": "source.yini comment",
+          "settings": {
+            "foreground": "#008000"
+          }
+        }
+      ]
+    },
+    "[Default High Contrast]": {
+      "textMateRules": [
+        {
+          "scope": "source.yini comment",
+          "settings": {
+            "foreground": "#00FF00"
+          }
+        }
+      ]
+    },
+    "[Default High Contrast Light]": {
+      "textMateRules": [
+        {
+          "scope": "source.yini comment",
+          "settings": {
+            "foreground": "#006400"
+          }
+        }
+      ]
+    }
   }
 }

@@ -1,0 +1,99 @@
+// SYNTAX TEST "source.yini" "YINI RC.7 strings, identifiers, and token boundaries"
+
+escaped = E"one\nquote: \\"
+//        ^^ string.quoted.double.escaped.yini
+//             ^^ constant.character.escape.yini
+//                      ^^ constant.character.escape.yini
+escaped = E'one\nquote: \\'
+//        ^^ string.quoted.single.escaped.yini
+//             ^^ constant.character.escape.yini
+//                      ^^ constant.character.escape.yini
+escaped_triple = E"""first\n
+//               ^ storage.type.string.yini
+//                        ^^ constant.character.escape.yini
+second \""" still inside
+//          ^^^^^^^^^^^^ string.quoted.triple.double.escaped.yini
+last"""
+//  ^^^ punctuation.definition.string.end.yini
+escaped = e"one\nquote: \\"
+//        ^^ string.quoted.double.escaped.yini
+//             ^^ constant.character.escape.yini
+//                      ^^ constant.character.escape.yini
+escaped = e'one\nquote: \\'
+//        ^^ string.quoted.single.escaped.yini
+//             ^^ constant.character.escape.yini
+//                      ^^ constant.character.escape.yini
+escaped_triple = e"""first\n
+//               ^ storage.type.string.yini
+//                        ^^ constant.character.escape.yini
+second \""" still inside
+//          ^^^^^^^^^^^^ string.quoted.triple.double.escaped.yini
+last"""
+//  ^^^ punctuation.definition.string.end.yini
+escaped_backtick = E"\`"
+//                   ^^ constant.character.escape.yini
+command_text = command"""
+//             ^^^^^^^ storage.type.string.yini
+//                    ^^^ punctuation.definition.string.begin.yini
+    # // /* ; -- \n
+//  ^^^^^^^^^^^^^^^ string.quoted.triple.double.command.yini - comment.line.hash.yini comment.line.double-slash.yini comment.block.yini meta.line.disabled.yini constant.character.escape.yini
+    fake = true
+//  ^^^^ string.quoted.triple.double.command.yini - variable.other.key.yini
+    ^ fake_section
+//    ^^^^^^^^^^^^ string.quoted.triple.double.command.yini - entity.name.section.yini
+    echo """embedded"""
+//       ^^^^^^^^^^^^^^ string.quoted.triple.double.command.yini - punctuation.definition.string.end.yini
+  """
+//^^^ punctuation.definition.string.end.yini
+after_command = true
+//<------------- variable.other.key.yini
+//              ^^^^ constant.language.boolean.yini
+wrong_case = Command"""raw fallback"""
+//                     ^^^^^^^^^^^^ - string.quoted.triple.double.command.yini
+`a\\name` = true
+//<--------- variable.other.key.yini - comment.line.hash.yini comment.line.double-slash.yini comment.block.yini meta.line.disabled.yini
+`a\`b` = true
+//<------ variable.other.key.yini - comment.line.hash.yini comment.line.double-slash.yini comment.block.yini meta.line.disabled.yini
+`` = true
+//<-- variable.other.key.yini - comment.line.hash.yini comment.line.double-slash.yini comment.block.yini meta.line.disabled.yini
+`# // /* ; --` = true
+//<-------------- variable.other.key.yini - comment.line.hash.yini comment.line.double-slash.yini comment.block.yini meta.line.disabled.yini
+^ `a\`b`
+//^^^^^^ entity.name.section.yini
+^ /* marker comment */ Named
+//^^^^^^^^^^^^^^^^^^^^ comment.block.yini
+//                     ^^^^^ entity.name.section.yini
+^2 /* marker comment */ Child
+//                      ^^^^^ entity.name.section.yini
+^ Parent /* trailing
+//^^^^^^ entity.name.section.yini
+comment */
+after_block = true
+//<----------- variable.other.key.yini
+obj = {hex:10, true: on, null: null, nested: {hex: hex:FF}}
+//     ^^^ variable.other.key.yini - constant.numeric.hex.yini
+//             ^^^^ variable.other.key.yini - constant.language.boolean.yini
+//                       ^^^^ variable.other.key.yini - constant.language.null.yini
+//                                                 ^^^^^^ constant.numeric.hex.yini - variable.other.key.yini
+list = [hex:FF, {hex:10}]
+//      ^^^^^^ constant.numeric.hex.yini
+true = false
+//<---- variable.other.key.yini - constant.language.boolean.yini
+compact = "a"+42
+//           ^ keyword.operator.concatenation.yini
+//            ^^ constant.numeric.decimal.yini
+signed = "a"++42
+//          ^^ keyword.operator.concatenation.yini
+spaced = "a" +42
+//           ^ keyword.operator.concatenation.yini
+fraction = -.5
+//         ^^^ constant.numeric.decimal.yini
+signed_base = -0xFF
+//            ^^^^^ constant.numeric.hex.yini
+bad_number = 12oops
+//           ^^ - constant.numeric.decimal.yini
+  -- disabled = true
+//^^^^^^^^^^^^^^^^^^ meta.line.disabled.yini - comment.line.double-slash.yini comment.line.hash.yini comment.block.yini
+unclosed = E"only this line
+recovered = 1
+//<--------- variable.other.key.yini - string.quoted.double.escaped.yini

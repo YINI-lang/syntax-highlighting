@@ -4,10 +4,10 @@ enabled = true
 // <------ variable.other.key.yini
 //      ^ keyword.operator.assignment.yini
 //        ^^^^ constant.language.boolean.yini
-missing: null
+missing = null
 // <----- variable.other.key.yini
-//     ^ punctuation.separator.key-value.yini
-//       ^^^^ constant.language.null.yini
+//      ^ keyword.operator.assignment.yini
+//        ^^^^ constant.language.null.yini
 
 decimal = -12_345.67e+8
 //        ^^^^^^^^^^^^^ constant.numeric.decimal.yini
