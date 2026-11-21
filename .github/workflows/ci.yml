@@ -27,8 +27,11 @@ jobs:
       - name: Install pinned dependencies
         run: npm ci
 
-      - name: Run grammar and fixture tests
+      - name: Run grammar, example, and RC.7 tests
         run: npm test
 
       - name: Check extension package contents
         run: npm run package:check
+
+      - name: Build local extension package
+        run: npm run package

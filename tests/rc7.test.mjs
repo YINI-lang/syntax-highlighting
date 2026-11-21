@@ -91,6 +91,12 @@ for (const strictMode of [false, true]) {
     assert.ok(parsed.diagnostics.some((d) => d.severity === "error" && /duplicate/i.test(d.message)));
   });
 
+  test(`${mode}: invalid section names are rejected`, () => {
+    const parsed = parseForTooling("^ bad-name\nx = 1\n/END", { strictMode });
+    assert.equal(parsed.ok, false);
+    assert.ok(parsed.diagnostics.some((d) => d.severity === "error"));
+  });
+
   test(`${mode}: signed 64-bit integers remain exact`, () => {
     const result = valid("min = -9223372036854775808\nmax = 9223372036854775807", strictMode);
     assert.equal(result.min, -9223372036854775808n);
@@ -153,6 +159,18 @@ test("mode declarations report mismatches without switching modes", () => {
   assert.ok(lenientInStrict.diagnostics.some((d) => d.code === "YINI_MODE_MISMATCH" && d.severity === "warning"));
   const stillStrict = parseForTooling('@yini lenient\n^ App\nx =\n/END', { strictMode: true });
   assert.equal(stillStrict.ok, false);
+});
+
+test("lenient: duplicate keys keep the first value and warn", () => {
+  const parsed = document("x = 1\nx = 2", false);
+  assert.equal(parsed.ok, true);
+  assert.equal(parsed.result.App.x, 1);
+  assert.ok(parsed.diagnostics.some((d) => d.severity === "warning" && /duplicate/i.test(d.message)));
+});
+
+test("inline object separators follow the selected mode", () => {
+  assert.deepEqual(valid("object = {first: 1, second = 2}", false).object, { first: 1, second: 2 });
+  assert.equal(document("object = {first: 1, second = 2}", true).ok, false);
 });
 
 test("lenient: scalar concatenation preserves normalized source spelling", () => {

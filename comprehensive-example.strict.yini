@@ -176,7 +176,6 @@ commandString = command"""
 `path\\name` = "A key containing a backslash"
 `` = "An empty key is allowed, but discouraged."
 
-
     ^^^ Cache            // Nested section. Indentation is for readability only.
     type = "redis"
     TTL = 3600

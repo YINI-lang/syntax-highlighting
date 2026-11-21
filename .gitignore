@@ -5,3 +5,4 @@
 # Dependencies and test output
 node_modules/
 coverage/
+debug.log

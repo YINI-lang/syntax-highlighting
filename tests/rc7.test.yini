@@ -97,3 +97,11 @@ bad_number = 12oops
 unclosed = E"only this line
 recovered = 1
 //<--------- variable.other.key.yini - string.quoted.double.escaped.yini
+
+commented = {hex /* note */ : 10}
+//           ^^^ variable.other.key.yini
+//               ^^^^^^^^^^ comment.block.yini
+//                            ^^ constant.numeric.decimal.yini
+
+/* before key */ after_comment = true
+//               ^^^^^^^^^^^^^ variable.other.key.yini

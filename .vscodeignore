@@ -7,5 +7,7 @@ comprehensive-example*.yini
 sample*.yini
 syntaxes/old-yini.tmLanguage.json
 .gitignore
+AGENTS.md
 package-lock.json
 *.vsix
+debug.log

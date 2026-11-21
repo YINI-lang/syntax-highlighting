@@ -356,9 +356,14 @@
         { "include": "#comments" },
         {
           "name": "meta.object.member.yini",
-          "begin": "((?:[A-Za-z_][A-Za-z0-9_]*|`(?:\\\\[`\\\\]|[^`\\\\\\x00-\\x1F\\x7F-\\x9F])*`))([ \\t]*)([:=])",
+          "begin": "((?:[A-Za-z_][A-Za-z0-9_]*|`(?:\\\\[`\\\\]|[^`\\\\\\x00-\\x1F\\x7F-\\x9F])*`))([ \\t]*(?:/\\*(?:[^*\\r\\n]|\\*(?!/))*\\*/[ \\t]*)*)([:=])",
           "beginCaptures": {
             "1": { "name": "variable.other.key.yini" },
+            "2": {
+              "patterns": [
+                { "include": "#comments" }
+              ]
+            },
             "3": {
               "patterns": [
                 {
@@ -411,7 +416,7 @@
     },
     "string-expression": {
       "name": "meta.string-expression.yini",
-      "begin": "(?=(?<![A-Za-z0-9_])(?:[RrEeCc][\\\"']|command\\\"\\\"\\\"(?=\\r?$))|[\\\"'])",
+      "begin": "(?=(?<![A-Za-z0-9_])(?:[RrEeCc][\"']|command\"\"\"(?=\\r?$))|[\"'])",
       "end": "(?=$|[,}\\]])",
       "patterns": [
         { "include": "#strings" },
