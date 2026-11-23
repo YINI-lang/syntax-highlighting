@@ -1,8 +1,13 @@
 # Changelog
 
-All notable changes to the YINI syntax-highlighting extension are documented here.
+All notable changes to the YINI syntax-highlighting definitions for VS Code and Notepad++ are documented here.
 
 ## Unreleased
+
+### Added
+
+- Notepad++ UDL 2.1 definition in `notepadplusplus/YINI_byYINI-lang.xml`, with green comments and a separate gray italic disabled-line style. The [Notepad++ guide](notepadplusplus/README.md) covers installation, development checks, and UDL limitations; the XML needs no compilation.
+- Automated XML and UDL configuration checks through `npm run test:udl`, included in `npm test` and CI. Both editors share the existing public examples.
 
 ### Changed
 

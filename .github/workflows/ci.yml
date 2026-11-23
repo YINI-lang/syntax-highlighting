@@ -27,7 +27,7 @@ jobs:
       - name: Install pinned dependencies
         run: npm ci
 
-      - name: Run grammar, example, and RC.7 tests
+      - name: Run TextMate, Notepad++, example, and RC.7 tests
         run: npm test
 
       - name: Check extension package contents

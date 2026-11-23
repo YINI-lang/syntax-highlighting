@@ -1,10 +1,10 @@
 # YINI RC.7 compatibility
 
-This extension targets [YINI Specification 1.0.0-RC.7](https://github.com/YINI-lang/YINI-spec/blob/v1.0.0-rc.7/YINI-Specification.md), dated 2026-11-14. The reference is the `v1.0.0-rc.7` tag in the specification repository, commit `b812e3f151e609593c0bd87e957820ec30f9cabd`.
+The TextMate grammar and Notepad++ UDL definition target [YINI Specification 1.0.0-RC.7](https://github.com/YINI-lang/YINI-spec/blob/v1.0.0-rc.7/YINI-Specification.md), dated 2026-11-14. The reference is the `v1.0.0-rc.7` tag in the specification repository, commit `b812e3f151e609593c0bd87e957820ec30f9cabd`.
 
 The review uses the specification's change list in section 16.4 and its [ANTLR lexer](https://github.com/YINI-lang/YINI-spec/blob/v1.0.0-rc.7/Grammar-ANTLR4/YiniLexer.g4) and [parser grammar](https://github.com/YINI-lang/YINI-spec/blob/v1.0.0-rc.7/Grammar-ANTLR4/YiniParser.g4). These grammars describe the language's syntax. Some validation rules are enforced by the parser implementation.
 
-## What the extension covers
+## TextMate and parser checks
 
 The extension supplies TextMate labels, also called scopes, for coloring YINI text. It does not report parser warnings or errors in the editor. Automated tests use `yini-cli` and `yini-parser` 2.0.0 to check the examples and selected RC.7 rules.
 
@@ -32,6 +32,14 @@ The extension supplies TextMate labels, also called scopes, for coloring YINI te
 
 The tests are focused checks for this extension and its fixtures. They are not a replacement for a parser's full conformance suite.
 
+## Notepad++ coverage
+
+[`notepadplusplus/YINI_byYINI-lang.xml`](../notepadplusplus/YINI_byYINI-lang.xml) supplies UDL styles for comments, disabled lines, raw and escaped strings, multiline strings, backticked names, literals, numbers, operators, and document keywords. It uses the same four public examples as the TextMate grammar. See the [Notepad++ build and installation guide](../notepadplusplus/README.md): the XML is maintained directly and is ready to import without compilation.
+
+`npm run test:udl`, also included in `npm test`, checks well-formed XML, required UDL entries, keyword agreement with TextMate, delimiter priority and recovery settings, and separate disabled-line styling. These checks do not run the Notepad++ lexer. Parser tests establish YINI behavior; they do not establish either editor's rendering.
+
+UDL does not provide TextMate scopes or context-sensitive key coloring. Its command strings close at any triple quote; an embedded triple quote can affect highlighting of subsequent lines. Semicolon comments and disabled-line delimiters are not restricted to the start of a line, and numbers and escapes receive approximate highlighting. See the [full UDL limitations](../notepadplusplus/README.md#differences-from-textmate-highlighting) and perform the editor checks in that guide before claiming support for a feature.
+
 ## Examples and warnings
 
 The small samples and comprehensive examples are warning-free in their intended modes. The comprehensive pair keeps the same sections and member names in the same order. Strict mode uses one top-level section, string-only concatenation, no trailing commas, and a required `/END`.
@@ -43,3 +51,5 @@ Raw means that backslashes stay literal. It does not mean source line endings ar
 ## Comment colors
 
 The repository's VS Code settings make YINI comments green and keep disabled lines separate. Installed copies respect the user's chosen theme. See the [color settings guide](VSCode.md) for optional settings and the [maintainer guide](Maintainer-Doc.md) for release checks.
+
+The Notepad++ UDL uses green comment styles and a separate gray italic Delimiter 8 style for disabled lines. It inherits the editor background and font; token foreground colors can be adjusted in the UDL dialog for the chosen theme.
