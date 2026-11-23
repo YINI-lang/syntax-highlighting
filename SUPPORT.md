@@ -8,4 +8,4 @@ For VS Code, include the extension version and any custom color settings. For No
 
 For comment colors or disabled-line appearance, see the [VS Code settings guide](https://github.com/YINI-lang/yini-syntax-highlighting/blob/main/docs/VSCode.md). A theme can change a token's color even when the extension identifies it correctly.
 
-For Notepad++, see the [build and installation guide](https://github.com/YINI-lang/yini-syntax-highlighting/blob/main/notepadplusplus/README.md), including supported features, color customization, and known UDL limitations. The XML is ready to import and does not need compilation. `npm run test:udl` checks the definition's structure; include a screenshot or a small reproduction for an editor highlighting problem.
+For Notepad++, see the [build and installation guide](notepadplusplus/README.md), including supported features, color customization, and known UDL limitations. The XML is ready to import and does not need compilation. `npm run test:udl` checks the definition's structure; include a screenshot or a small reproduction for an editor highlighting problem.
