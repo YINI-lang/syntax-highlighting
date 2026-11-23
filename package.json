@@ -56,11 +56,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/YINI-lang/syntax-highlighting.git"
+    "url": "git+https://github.com/YINI-lang/yini-syntax-highlighting.git"
   },
-  "homepage": "https://github.com/YINI-lang/syntax-highlighting#readme",
+  "homepage": "https://github.com/YINI-lang/yini-syntax-highlighting#readme",
   "bugs": {
-    "url": "https://github.com/YINI-lang/syntax-highlighting/issues"
+    "url": "https://github.com/YINI-lang/yini-syntax-highlighting/issues"
   },
   "devDependencies": {
     "@carlwr/textmate-validate": "1.1.0",

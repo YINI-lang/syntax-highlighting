@@ -2,6 +2,13 @@
 
 All notable changes to the YINI syntax-highlighting extension are documented here.
 
+## Unreleased
+
+### Changed
+
+- **Changed:** Renamed this repo to `yini-syntax-highlighting` from `syntax-highlighting`.
+- Updated repository, support, and CI badge links to `YINI-lang/yini-syntax-highlighting` after the GitHub repository rename.
+
 ## 1.1.0 - 2026-11-21
 
 ### Added
