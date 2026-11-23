@@ -3,7 +3,7 @@
 [![Install from the VS Code Marketplace](https://img.shields.io/badge/VS%20Code-Install-007ACC)](https://marketplace.visualstudio.com/items?itemName=yini-lang.yini-syntax-highlighting)
 [![CI status](https://github.com/YINI-lang/yini-syntax-highlighting/actions/workflows/ci.yml/badge.svg)](https://github.com/YINI-lang/yini-syntax-highlighting/actions/workflows/ci.yml)
 
-Syntax highlighting for [YINI](https://github.com/YINI-lang) configuration files in VS Code, Notepad++, and other editors that support TextMate grammars. Both definitions share this repository, examples, and issue tracker.
+**Syntax highlighting** for [YINI](https://github.com/YINI-lang) configuration files in **VS Code, Notepad++, and other editors that support TextMate grammars**. Both definitions share this repository, examples, and issue tracker.
 
 Compatibility: Both editor definitions target the [YINI Specification 1.0.0-RC.7](https://github.com/YINI-lang/YINI-spec/blob/v1.0.0-rc.7/YINI-Specification.md), dated 2026-11-14. See the [compatibility notes](docs/RC7-Compatibility.md) for the coverage and differences between editors.
 
