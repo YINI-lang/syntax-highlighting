@@ -1,5 +1,7 @@
 # Comment colors and disabled lines in VS Code
 
+These settings apply to VS Code only. For Notepad++ build, installation, and UDL color settings, use the [Notepad++ guide](../notepadplusplus/README.md). Its XML is ready to import without compilation; VS Code settings do not affect it.
+
 The extension identifies comments, while your theme normally chooses their color. This repository adds a green color for YINI comments in `.vscode/settings.json`. It covers `//`, `#`, full-line `;`, block comments, and the first-line shebang.
 
 Lines beginning with `--` are disabled lines. They have a separate label, `meta.line.disabled.yini`, and are excluded from the green-comment rule. Comment-like text inside strings and backticked names keeps its usual highlighting.

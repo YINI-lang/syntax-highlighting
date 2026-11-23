@@ -1,6 +1,7 @@
 .github/**
 .vscode/**
 docs/**
+notepadplusplus/**
 tests/**
 node_modules/**
 comprehensive-example*.yini

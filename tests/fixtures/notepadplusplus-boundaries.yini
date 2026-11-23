@@ -1,0 +1,26 @@
+// Manual Notepad++ highlighting checks, including deliberately invalid input.
+// This file is not a valid YINI document or a TextMate assertion fixture.
+^ Boundaries
+
+raw = R"backslash is literal \" # This is a comment after the raw string.
+escaped = E"backslash escapes the quote \" # This is still string content."
+after_strings = true
+
+`name\`with # and --` = true
+-- Disabled content: E"unfinished # /* with no closing delimiter.
+after_disabled = true
+
+// Unfinished single-line strings and names should recover before the next line.
+broken_string = "unfinished
+# This should be a green comment.
+`unfinished_name
+-- This should be a gray italic disabled line.
+after_broken_input = true
+
+// Known UDL limitation: one embedded triple quote closes this command early.
+command_body = command"""
+    echo '"""'
+    # YINI still treats this as command-string content.
+"""
+after_command = true
+/END

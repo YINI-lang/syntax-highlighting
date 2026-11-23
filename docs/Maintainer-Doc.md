@@ -1,10 +1,10 @@
 # Maintainer guide
 
-The extension targets YINI Specification 1.0.0-RC.7. See the [compatibility notes](RC7-Compatibility.md) for the source version and test coverage.
+The TextMate grammar and Notepad++ UDL target YINI Specification 1.0.0-RC.7. See the [compatibility notes](RC7-Compatibility.md) for the source version and coverage. Keep both definitions in the same specification-update pull request, using the four shared public examples. See the [Notepad++ guide](../notepadplusplus/README.md) for its build and installation steps, supported features, and limitations.
 
 ## Run the automated checks
 
-Use Node.js 22 or newer. CI uses Node.js 24. Install the exact development dependencies recorded in `package-lock.json`, then run the tests:
+Use Node.js 22.9 or newer. CI uses Node.js 24. Install the exact development dependencies recorded in `package-lock.json`, then run the tests:
 
 ```shell
 npm ci
@@ -13,7 +13,7 @@ npm test
 
 On Windows, use `npm.cmd` if PowerShell blocks `npm.ps1`.
 
-The suite checks the grammar's regular expressions, token labels, example order, and parsing in both modes. It also checks RC.7 string values, expected warnings, and invalid inputs. The parser and CLI are both pinned to version 2.0.0.
+The suite checks the TextMate grammar's regular expressions, token labels, Notepad++ XML and UDL configuration, example order, and parsing in both modes. It also checks RC.7 string values, expected warnings, and invalid inputs. The parser and CLI are both pinned to version 2.0.0. XML checks do not run Notepad++; rendering needs a separate editor check.
 
 The four public examples must pass without warnings. Intentional warning cases belong in `tests/fixtures/rc7-warnings.yini`. Their tests check the warnings and verify that the CLI fails when `--warnings-as-errors` is selected.
 
@@ -25,6 +25,7 @@ npm run test:scopes
 npm run test:fixtures
 npm run test:yini
 npm run test:rc7
+npm run test:udl
 ```
 
 Files ending in `.test.yini` contain highlighting assertions. They are test inputs, not complete example documents to validate with the CLI.
@@ -46,7 +47,28 @@ No build step is needed. See the [color settings guide](VSCode.md) for the repos
 
 ---
 
-## Prepare the local package
+## Check highlighting in Notepad++
+
+Edit `notepadplusplus/YINI_byYINI-lang.xml` directly. It is the ready-to-import artifact, so no build step is needed. The [Notepad++ guide](../notepadplusplus/README.md) covers import, separate-file installation, updates, and colors.
+
+Use an isolated configuration to avoid replacing your installed YINI definition. For example, in PowerShell from the repository root:
+
+```powershell
+$yiniNppRoot = Join-Path $env:TEMP ("yini-npp-" + [guid]::NewGuid())
+New-Item -ItemType Directory -Path "$yiniNppRoot/userDefineLangs" -Force
+Copy-Item -LiteralPath ./notepadplusplus/YINI_byYINI-lang.xml -Destination "$yiniNppRoot/userDefineLangs/YINI_byYINI-lang.xml"
+& "$env:ProgramFiles/Notepad++/notepad++.exe" -multiInst -nosession -noPlugin "-settingsDir=$yiniNppRoot" ./sample.yini
+```
+
+Adjust the executable path for your installation. Open the other three public examples in that test instance. Confirm automatic `.yini`, `.strict.yini`, and `.YINI` language selection, green comments, separate gray italic disabled lines, string-prefix handling, and highlighting after closing delimiters. Check both light and dark themes and adjust UDL colors if needed.
+
+Use `tests/fixtures/notepadplusplus-boundaries.yini` for deliberate invalid input and the known command-string boundary limitation. Check single-line recovery, raw versus escaped quotes, backticked names, and an odd number of embedded triple quotes in a command body. Do not validate this manual fixture as a public example.
+
+Record the editor version and checks performed. When the specification changes, update both editor definitions or explain a UDL limitation in the guide and compatibility notes. The existing TextMate assertion fixtures test scopes and cannot directly test UDL rendering.
+
+---
+
+## Prepare the local packages
 
 Keep the extension identity `yini-lang.yini-syntax-highlighting`. Update the extension version in both package files when preparing a release; it is independent of the specification version. Keep the changelog entry marked **Unreleased** until a release date is chosen.
 
@@ -57,7 +79,9 @@ npm run package:check
 npm run package
 ```
 
-For version `1.1.0`, this creates `yini-syntax-highlighting-1.1.0.vsix` in the repository root. The package should include the grammar, language configuration, icon, README, changelog, support information, and license. Development dependencies, tests, examples, workspace settings, and maintainer documentation are excluded.
+For version `1.1.0`, this creates `yini-syntax-highlighting-1.1.0.vsix` in the repository root. The package should include the grammar, language configuration, icon, README, changelog, support information, and license. Development dependencies, tests, examples, workspace settings, maintainer documentation, and `notepadplusplus/**` are excluded.
+
+For Notepad++, distribute `notepadplusplus/YINI_byYINI-lang.xml` directly. `npm run test:udl` validates it; there is no generated or compiled UDL package. Use a Git commit or release to identify the XML revision when testing or reporting issues.
 
 Repository links in the README should resolve on GitHub when viewed from the Marketplace. Check the packaged README too.
 
@@ -88,6 +112,7 @@ Before publishing, check that:
 - Markdown links work and examples match the documented behavior.
 - Package contents are correct and the VSIX installs locally.
 - Highlighting and comment colors have been reviewed in VS Code.
+- The Notepad++ XML imports in a clean configuration, and the shared examples and boundary fixture have been checked in Notepad++. Record the tested editor version and any remaining limitations.
 - The changelog describes the final changes and any remaining limitations.
 
 Building or installing the local VSIX does not publish it. Publishing, pushing a release tag, and creating a public release are separate steps.
